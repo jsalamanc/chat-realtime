@@ -3,8 +3,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { useAppDispatch } from "@/lib/context/store";
-import { generateNotify } from "@/lib/context/GenerateNotify";
 import { Form } from "./Form";
 
 export const RegisterContainer = () => {
@@ -13,8 +11,6 @@ export const RegisterContainer = () => {
         handleSubmit,
         formState: { errors },
     } = useForm();
-    // const router = useRouter();
-    const dispatch = useAppDispatch();
     const router = useRouter();
 
     /**
@@ -25,16 +21,17 @@ export const RegisterContainer = () => {
         /**
          * envia los datos del usuario para relaizar el registro
          */
-        const res = await fetch("/api/register", {
+        const res = await fetch("/api/auth/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 "access-control-allow-credentials": `${process.env.API_KEY}`,
             },
             body: JSON.stringify({
-                email: data.email,
                 password: data.password,
                 name: data.name,
+                typeUser: data.typeUser,
+                username: data.username
             }),
         });
         const result = await res.json();
@@ -44,11 +41,7 @@ export const RegisterContainer = () => {
          * para informar al usuario
          */
         if (result?.message === "El usuario existe") {
-            generateNotify({
-                dispatch,
-                timeout: 4000,
-                notification: { type: "error", message: result?.message || "" },
-            });
+            alert(result?.message)
         }
 
         /**
@@ -56,12 +49,8 @@ export const RegisterContainer = () => {
          * para informar al usuario
          */
         if (result?.message === "Usuario creado exitosamente.") {
-            generateNotify({
-                dispatch,
-                timeout: 4000,
-                notification: { type: "success", message: result?.message || "" },
-            });
-            router.push("/dashboard");
+            alert(result?.message);
+            router.push("/?type=login");
         }
 
         /**
@@ -71,11 +60,7 @@ export const RegisterContainer = () => {
         if (
             result?.message === "Error inesperado, porfavor, intentelo más tarde."
         ) {
-            generateNotify({
-                dispatch,
-                timeout: 4000,
-                notification: { type: "error", message: result?.message || "" },
-            });
+            alert(result?.message);
         }
     });
 

@@ -3,15 +3,27 @@
 import React, { useEffect, useState } from 'react';
 import { CardMessage } from './CardMessage';
 import socket from '@/lib/socket';
+import { useAppSelector } from '@/lib/context/store';
+import { fetcher } from '@/hook/fetcher';
+import useSWR from 'swr';
 export const Chat = () => {
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState("");
+    const user = useAppSelector((state) => state?.reducers?.UserSession?.user?.data);
+
+    const { data } = useSWR(`/api/clases/chat`, fetcher);
+
+    useEffect(() => {
+        if (data) {
+            setMessages((prevMessages) => [...data?.data]);
+        }
+    }, [data])
 
     useEffect(() => {
         // Escuchar mensajes del servidor
         socket.on("message", (message) => {
             console.log('message', message);
-            setMessages((prevMessages) => [...prevMessages, message]);
+            setMessages((prevMessages) => [...prevMessages, message?.body]);
         });
 
         // Limpiar eventos al desmontar el componente
@@ -20,9 +32,23 @@ export const Chat = () => {
         };
     }, []);
 
-    const sendMessage = () => {
-        socket.emit("message", input);
+    const sendMessage = async () => {
+        console.log(user)
+        const message = {
+            username: user?.username,
+            typeUser: user?.type,
+            message: input
+        }
+        setMessages((prevMessages) => [...prevMessages, message]);
+        socket.emit("message", message);
         setInput("");
+        await fetch('/api/clases/chat', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(message)
+        });
     };
     return (
         <div className="bg-gray-900 p-4">
@@ -31,7 +57,19 @@ export const Chat = () => {
                     Mensajes de los Estudiantes:
                 </div>
                 <div className='h-[80vh] overflow-y-auto'>
-                    <CardMessage />
+                    {messages?.length > 0 ? (
+                        <>
+                            {messages?.map((message, index) => (
+                                <CardMessage key={index} username={message?.username} message={message?.message} typeUser={message?.typeUser} />
+                            ))
+                            }
+                        </>
+                    ) : (
+                        <>
+                            <p className='mt-5 text-center'>Aún no hay mensajes en el chat</p>
+                        </>
+                    )
+                    }
                 </div>
                 <div className="relative w-full border border-gray-700 rounded-lg bg-[#182125] flex">
                     <input

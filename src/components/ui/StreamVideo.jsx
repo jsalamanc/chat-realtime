@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
 
-export const StreamVideo = () => {
+export const StreamVideo = ({ videoIframe }) => {
     return (
         <div className="col-span-2 bg-gray-900 p-4">
             <div className="relative h-full flex flex-col items-center justify-center">
@@ -11,7 +11,7 @@ export const StreamVideo = () => {
                 >
                     <iframe
                         className="w-full h-[80%]"
-                        src="https://www.youtube.com/embed/17HknA0tBYY?si=FCTgvl1Q89I5pqQ4"
+                        src={videoIframe}
                         title="YouTube video player"
                         frameBorder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

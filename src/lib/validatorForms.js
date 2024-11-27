@@ -1,12 +1,15 @@
 export const validator = {
     username: {
-        required: 'Nombrew de usuario invalido'
+        required: 'Nombre de usuario invalido'
     },
     name: {
         required: 'Nombre invalido'
     },
     password: {
         required: 'Contraseña invalida.'
+    },
+    typeUser: {
+        required: 'Tipo de usuario invalido.'
     },
     createPassword: {
         required: 'Ingrese una contraseña.',

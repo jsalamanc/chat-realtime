@@ -27,12 +27,26 @@ export const Form = ({
                 <input
                     type="text"
                     className="w-full border border-gray-500 bg-gray-700 transition rounded-md py-2 px-3 focus:outline-none focus:ring text-slate-100"
-                    autoComplete="name"
-                    {...register('name', validator.username)}
-                    placeholder="Ingrese su nombre"
+                    autoComplete="username"
+                    {...register('username', validator.username)}
+                    placeholder="Ingrese su nombre de usuario"
                 />
-                {errors?.name && errors.name?.message && (
-                    <p className="text-red-500">{`${errors.name.message}`}</p>
+                {errors?.username && errors.username?.message && (
+                    <p className="text-red-500">{`${errors.username.message}`}</p>
+                )}
+            </div>
+            <div className="mb-4">
+                <label className="block text-white">Nombre de usuario</label>
+                <select
+                    className="w-full border border-gray-500 bg-gray-700 transition rounded-md py-2 px-3 focus:outline-none focus:ring text-slate-100"
+                    {...register('typeUser', validator.typeUser)}
+                >
+                    <option value="" key="">Seleccione una opción</option>
+                    <option value="estudiante" key="estudiante">Estudiante</option>
+                    <option value="moderador" key="moderador">Moderador</option>
+                </select>
+                {errors?.typeUser && errors.typeUser?.message && (
+                    <p className="text-red-500">{`${errors.typeUser.message}`}</p>
                 )}
             </div>
             <div className="mb-4">
@@ -53,7 +67,7 @@ export const Form = ({
                 type="submit"
                 className="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-md py-2 px-4 w-full"
             >
-                Iniciar sesión
+                Registrarme
             </button>
             <p className="mt-5 text-sm text-slate-300 text-center">
                 ¿ya tienes cuenta?

@@ -13,7 +13,15 @@ datasource db {
 model User {
   id Int @id @default(autoincrement())
   name String
-  user String @unique
+  username String @unique
+  type String
   password String
   createdAd DateTime @default(now())
+}
+
+model Chats {
+  id Int @id @default(autoincrement())
+  username String
+  typeUser String
+  message String
 }

@@ -1,6 +1,7 @@
 import React from 'react'
+import { signOut } from "next-auth/react";
 
-export const MenuDesktop = () => {
+export const MenuDesktop = ({ nameUser }) => {
     return (
         <div className="absolute right-[0rem] bottom-[-15.7rem] w-[13rem] p-4 rounded-md bg-[#1a1a1a]">
             <div className="p-2 rounded-md border border-orange-500 mb-2 select-none cursor-pointer">
@@ -14,10 +15,10 @@ export const MenuDesktop = () => {
                             viewBox="0 0 24 24"
                             fill="none"
                             stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            class="lucide lucide-tv-minimal"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="lucide lucide-tv-minimal"
                         >
                             <path d="M7 21h10" />
                             <rect width="20" height="14" x="2" y="3" rx="2" />
@@ -27,10 +28,10 @@ export const MenuDesktop = () => {
                 </div>
             </div>
             <div className="py-2 border-y-2 border-gray-500">
-                <p className="mb-2">!Hola, {'Juan Diego'}!</p>
+                <p className="mb-2">!Hola, {nameUser}!</p>
                 <span className="cursor-pointer font-bold">Ver mi Perfil</span>
             </div>
-            <button className="mt-2 font-bold">Cerrar sesión</button>
+            <button className="mt-2 font-bold" onClick={() => signOut()}>Cerrar sesión</button>
         </div>
     )
 }

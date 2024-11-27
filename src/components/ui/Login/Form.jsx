@@ -2,53 +2,37 @@
 
 import { validator } from "@/lib/validatorForms";
 import Link from "next/link";
-import { Eye, EyeOff } from "lucide-react";
-import { useState } from "react";
 
 export const Form = ({
     onSubmit,
     register,
     errors,
 }) => {
-    const [passwordVissible, isPasswordVissible] = useState(false);
-    const handleEyePassword = () => {
-        isPasswordVissible(!passwordVissible);
-    };
     return (
         <form action="#" onSubmit={onSubmit}>
             <div className="mb-4">
-                <label className="block text-white">Correo Electronico</label>
+                <label className="block text-white">Usuario</label>
                 <input
                     type="text"
                     className="w-full border border-gray-500 bg-gray-700 transition rounded-md py-2 px-3 focus:outline-none focus:ring text-slate-100"
-                    autoComplete="email"
-                    {...register("email", validator.username)}
+                    autoComplete="username"
+                    {...register("username", validator.username)}
                     placeholder="Ingrese su Correo Electronico"
                 />
-                {errors?.email && errors.email?.message && (
-                    <p className="text-red-500">{`${errors.email.message}`}</p>
+                {errors?.username && errors.username?.message && (
+                    <p className="text-red-500">{`${errors.username.message}`}</p>
                 )}
             </div>
             <div className="mb-4">
                 <label className="block text-white">Contraseña</label>
                 <div className="relative">
                     <input
-                        type={!passwordVissible ? "password" : "text"}
+                        type='password'
                         className="w-full border border-gray-500 bg-gray-700 transition rounded-md py-2 px-3 focus:outline-none focus:border-blue-500 focus:ring text-white"
                         autoComplete="current-password"
                         {...register("password", validator.password)}
                         placeholder="Ingrese su contraseña"
                     />
-                    <button
-                        className="absolute right-2 top-2 transition rounded-full hover:bg-slate-400 p-1"
-                        onClick={handleEyePassword}
-                    >
-                        {passwordVissible ? (
-                            <Eye size={19} color="white" />
-                        ) : (
-                            <EyeOff size={19} color="white" />
-                        )}
-                    </button>
                 </div>
                 {errors?.password && errors.password?.message && (
                     <p className="text-red-500">{`${errors.password.message}`}</p>
@@ -60,15 +44,6 @@ export const Form = ({
             >
                 Iniciar sesión
             </button>
-
-            <div className="pt-3 flex items-center justify-center">
-                <Link
-                    className="text-slate-400 hover:text-slate-300"
-                    href="?type=recovery-password"
-                >
-                    Recuperar Contraseña
-                </Link>
-            </div>
             <p className="mt-5 text-sm text-slate-300 text-center">
                 ¿o tienes cuenta aún?
             </p>

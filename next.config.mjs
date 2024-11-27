@@ -7,6 +7,9 @@ const nextConfig = {
             port: '',
             pathname: '/assets/**'
         }]
+    },
+    env: {
+        API_KEY: process.env.APY_KEY
     }
 };
 

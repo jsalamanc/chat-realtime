@@ -1,5 +1,8 @@
 import { Header } from "@/components/layout/Header";
 import "./globals.css";
+import { ContextProvider } from "@/lib/context/ContextProvider";
+import SessionWrapper from "@/lib/auth/SessionWrapper";
+import { Container } from "@/components/layout/Container";
 
 export const metadata = {
   title: "Create Next App",
@@ -8,13 +11,18 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-
-      <body
-      >
-        <Header />
-        {children}
-      </body>
-    </html>
+    <SessionWrapper>
+      <html lang="en">
+        <body
+        >
+          <ContextProvider>
+            <Container>
+              <Header />
+              {children}
+            </Container>
+          </ContextProvider>
+        </body>
+      </html>
+    </SessionWrapper>
   );
 }

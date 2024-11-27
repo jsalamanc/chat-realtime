@@ -2,9 +2,11 @@
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { MenuDesktop } from './MenuDesktop';
+import { useAppSelector } from '@/lib/context/store';
 
 export const Header = () => {
     const [openMenu, setOpenMenu] = useState(false);
+    const user = useAppSelector((state) => state?.reducers?.UserSession?.user?.data)
     const handleClick = () => setOpenMenu(!openMenu);
     return (
         <header className="p-5 bg-black">
@@ -26,7 +28,7 @@ export const Header = () => {
                     </div>
                     <li className="relative flex items-center">
                         <div className="w-10 h-10 rounded-full bg-white cursor-pointer" onClick={handleClick} />
-                        {openMenu && <MenuDesktop />}
+                        {openMenu && <MenuDesktop nameUser={user?.name} />}
                     </li>
                 </nav>
             </div>
