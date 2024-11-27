@@ -36,3 +36,17 @@ npx prisma studio
 http://localhost:5555
 
 ```
+
+### Rutas de la app
+
+login
+http://localhost:300/
+
+register
+http://localhost:300/?type=register
+
+clases disponibles
+http://localhost:300/clases
+
+clase
+http://localhost:300/clases/que-es-tailwind
