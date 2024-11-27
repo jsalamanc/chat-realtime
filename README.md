@@ -26,6 +26,8 @@ npm install --force
 npm run dev
 ```
 
+!!TEN EN CUENTA QUE PARA USAR EL CHAT EN RELATIME, DEBES EJECUTAR EL SERVIDOR DE EXPRESS ANTES DE NEXT.JS PARA QUE EL FRONTEND SE CONECTE AUTOMATICAMENTE
+
 para visualizar los datos en almacenados en SQlite, porfavor ejecutar el siguiente comoando para acceder a prisma Studio:
 
 ```bash
